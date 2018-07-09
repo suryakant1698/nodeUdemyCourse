@@ -15,6 +15,9 @@ module.exports=function(app){
         res.redirect('/');
     });
     app.get('/profile',function(req,res,next){
-        res.render('accounts/profile');
+        res.render('accounts/profile',{message:req.flash('loginMessage')});
+    });
+    app.get('/privacyPolicy',function(req,res,next){
+        res.json('Privacy');
     });
 };
