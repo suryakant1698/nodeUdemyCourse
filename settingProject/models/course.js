@@ -11,3 +11,4 @@ var coursSchema=mongoose.Schema({
     }],
     totalStudent:Number
 });
+module.exports=mongoose.model('Course',coursSchema);

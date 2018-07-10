@@ -24,6 +24,7 @@ mongoose.connect(secret.database,function(err){
 app.use(express.static(__dirname+'/public'));
 app.use('ejs',engine);
 app.set('view engine','ejs');
+app.set('view options', { layout:'navbar.ejs' });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(morgan('dev'));
@@ -34,6 +35,7 @@ app.use(session({
     secret:secret.secretKey,
     store:new MongoStore({url:secret.database,autoReconnect:true})
 }));
+app.use('/public',express.static('public'));
 app.use(passsport.initialize());
 app.use(passsport.session());
 app.use(flash());
@@ -44,5 +46,6 @@ app.use(function(req,res,next){
 
 var userRoutes=require('./controllers/user')(app);
 routes(app);
+var teacherRoutes=require('./controllers/teacher')(app);
 app.listen(secret.port);
 console.log('You are listening to the port 3000');
