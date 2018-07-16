@@ -12,6 +12,7 @@ module.exports=function(app){
                 course.title=req.body.title;
                 console.log(course.title);
                 course.save(function(err){
+
                     callback(err,course);
 
                 });
@@ -22,6 +23,7 @@ module.exports=function(app){
                     foundUser.coursesTeach.push({course:course._id});
                     foundUser.save(function(er){
                         if(err) console.log(err);
+                        
                         res.redirect('teacher/dashboard');
                     });
                 });
@@ -30,8 +32,9 @@ module.exports=function(app){
     });
 app.get('/teacher/dashboard',function(req,res,next){
     User.findOne({_id:req.user._id})
-    .populate('coursesTeach.course')
+    .populate('coursesTeach')
     .exec(function(err,foundUser){
+        console.log(foundUser);
         res.render('teacher/teacher-dashboard',{foundUser:foundUser});
     });
 });
