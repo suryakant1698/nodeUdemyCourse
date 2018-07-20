@@ -1,7 +1,8 @@
 var mongoose=require('mongoose');
 var Schema=mongoose.Schema;
+
 var coursSchema=mongoose.Schema({
-    name:String,
+    title:String,
     desc:String,
     wistid:Number,
     price:Number,

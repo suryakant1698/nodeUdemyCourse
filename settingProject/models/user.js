@@ -1,5 +1,6 @@
 var mongoose=require('mongoose');
 var Schema=mongoose.Schema;
+
 var userSchema=new Schema({
     email:{type:String,uniquie:true,lowercase:true},
     facebook:String,
@@ -9,11 +10,9 @@ var userSchema=new Schema({
         name:{type:String,default:''},
         picture:{type:String,default:''}
     },
-    coursesTeach:[{
-        course:{type:Schema.Types.ObjectId,ref:'course'}
-    }],
+    coursesTeach:[{type:Schema.Types.ObjectId,ref:'Course'}],
     coursesTaken:[{
-        course:{type:Schema.Types.ObjectId,ref:'course'}
+        course:{type:Schema.Types.ObjectId,ref:'Course'}
     }]    
 });
 

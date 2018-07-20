@@ -20,7 +20,7 @@ module.exports=function(app){
             function(course,callback){
                 User.findOne({_id:req.user._id},function(err,foundUser){
                     foundUser.role="teacher";
-                    foundUser.coursesTeach.push({course:course._id});
+                    foundUser.coursesTeach.push(course._id);
                     foundUser.save(function(er){
                         if(err) console.log(err);
                         
@@ -31,10 +31,11 @@ module.exports=function(app){
         ]);
     });
 app.get('/teacher/dashboard',function(req,res,next){
+    if(!req.user) res.redirect('/login');
     User.findOne({_id:req.user._id})
     .populate('coursesTeach')
     .exec(function(err,foundUser){
-        console.log(foundUser);
+        console.log(foundUser);        
         res.render('teacher/teacher-dashboard',{foundUser:foundUser});
     });
 });
